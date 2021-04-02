@@ -20,6 +20,13 @@
 // uncomment the below line to enable five button support
 //#define FIVEBUTTONS
 
+// Powerbank Keep Alive LED
+unsigned long previousMillis = 0;
+const int KEEP_ALIVE_LED_PIN_1 = 5;
+const int KEEP_ALIVE_LED_PIN_2 = 6;
+const long ledDuration = 250;
+const long ledPause = 5000;
+
 static const uint32_t cardCookie = 322417479;
 
 // DFPlayer Mini
@@ -720,6 +727,12 @@ void waitForTrackToFinish() {
 
 void setup() {
 
+  // Powerbank Keep Alive LED
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  digitalWrite(5, HIGH);
+  digitalWrite(6, HIGH);
+
   Serial.begin(115200); // Es gibt ein paar Debug Ausgaben über die serielle Schnittstelle
 
   // Wert für randomSeed() erzeugen durch das mehrfache Sammeln von rauschenden LSBs eines offenen Analogeingangs
@@ -947,6 +960,20 @@ void playShortCut(uint8_t shortCut) {
 
 void loop() {
   do {
+
+    // Powerbank Keep Alive LED
+    unsigned long currentMillis = millis();
+  
+    if(digitalRead(5) == HIGH && currentMillis - previousMillis >= ledDuration) {
+      previousMillis = currentMillis;
+      digitalWrite(5, LOW);
+      digitalWrite(6, LOW);
+    } else if(currentMillis - previousMillis >= ledPause) {
+      previousMillis = currentMillis;
+      digitalWrite(5, HIGH);
+      digitalWrite(6, HIGH);
+    }
+    
     checkStandbyAtMillis();
     mp3.loop();
 
