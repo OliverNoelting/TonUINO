@@ -1039,12 +1039,7 @@ void loop() {
     if (upButton.pressedFor(LONG_PRESS)) {
 #ifndef FIVEBUTTONS
       if (isPlaying()) {
-        if (!mySettings.invertVolumeButtons) {
           volumeUpButton();
-        }
-        else {
-          nextButton();
-        }
       }
       else {
         playShortCut(1);
@@ -1053,24 +1048,14 @@ void loop() {
 #endif
     } else if (upButton.wasReleased()) {
       if (!ignoreUpButton)
-        if (!mySettings.invertVolumeButtons) {
-          nextButton();
-        }
-        else {
           volumeUpButton();
-        }
       ignoreUpButton = false;
     }
 
     if (downButton.pressedFor(LONG_PRESS)) {
 #ifndef FIVEBUTTONS
       if (isPlaying()) {
-        if (!mySettings.invertVolumeButtons) {
           volumeDownButton();
-        }
-        else {
-          previousButton();
-        }
       }
       else {
         playShortCut(2);
@@ -1078,13 +1063,8 @@ void loop() {
       ignoreDownButton = true;
 #endif
     } else if (downButton.wasReleased()) {
-      if (!ignoreDownButton) {
-        if (!mySettings.invertVolumeButtons) {
-          previousButton();
-        }
-        else {
+      if (!ignoreDownButton) {        
           volumeDownButton();
-        }
       }
       ignoreDownButton = false;
     }
