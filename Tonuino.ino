@@ -1042,8 +1042,7 @@ void handleCardReader()
       break;
 
     case PCS_CARD_IS_BACK:
-      mp3.start();
-      disablestandbyTimer();
+      onNewCard();
       break;
     }    
   }
