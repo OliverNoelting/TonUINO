@@ -22,9 +22,9 @@
 
 // Powerbank Keep Alive LED
 unsigned long previousMillis = 0;
-const long ledDuration = 250;
-const long initialLedDuration = 5000;
-const long ledPause = 5000;
+const long ledDuration = 350;
+const long initialLedDuration = 7500;
+const long ledPause = 3000;
 
 static const uint32_t cardCookie = 322417479;
 
